@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cash App QR Payment</title>
+    <style>
+        body { font-family: Arial; text-align: center; background: #eef; padding: 50px; }
+        .amount-box { font-size: 28px; margin-bottom: 10px; }
+        .timer { color: red; font-weight: bold; }
+        .qr-box { margin-top: 20px; }
+        .button { margin-top: 20px; background: #00c244; color: white; padding: 10px 25px; font-size: 18px; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+    <script>
+        function getAmount() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get("amount") || "35.00";
+        }
+
+        function startCountdown(duration, display) {
+            let timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = minutes + ":" + seconds;
+                if (--timer < 0) {
+                    display.textContent = "EXPIRED";
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            const amount = getAmount();
+            document.getElementById("amountDisplay").textContent = "$" + amount;
+            document.getElementById("cashapplink").href = "https://cash.app/$otislew9/" + amount;
+
+            const qr = document.getElementById("qrcode");
+            qr.src = "https://api.qrserver.com/v1/create-qr-code/?data=https://cash.app/$otislew9/" + amount + "&size=200x200";
+
+            const timeDisplay = document.querySelector('#time');
+            startCountdown(1800, timeDisplay); // 30 minutes
+        }
+    </script>
+</head>
+<body>
+    <h1>Complete Your Payment</h1>
+    <div class="amount-box">Recharge Amount: <span id="amountDisplay">$35.00</span></div>
+    <div>Remaining payment time: <span class="timer" id="time">30:00</span></div>
+    <div class="qr-box">
+        <img id="qrcode" src="" alt="QR Code will load here" />
+    </div>
+    <a id="cashapplink" target="_blank"><button class="button">Pay with Cash App</button></a>
+</body>
+</html>
