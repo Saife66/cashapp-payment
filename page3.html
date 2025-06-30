@@ -33,10 +33,10 @@
         window.onload = function () {
             const amount = getAmount();
             document.getElementById("amountDisplay").textContent = "$" + amount;
-            document.getElementById("cashapplink").href = "https://cash.app/$otislew9/" + amount;
+            document.getElementById("cashapplink").href = "https://cash.app/$kauffmanShop/" + amount;
 
             const qr = document.getElementById("qrcode");
-            qr.src = "https://api.qrserver.com/v1/create-qr-code/?data=https://cash.app/$otislew9/" + amount + "&size=200x200";
+            qr.src = "https://api.qrserver.com/v1/create-qr-code/?data=https://cash.app/$kauffmanShop/" + amount + "&size=200x200";
 
             const timeDisplay = document.querySelector('#time');
             startCountdown(1800, timeDisplay); // 30 minutes
